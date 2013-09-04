@@ -11,3 +11,4 @@ target
 # Eclipse Files #
 .project
 .classpath
+.settings

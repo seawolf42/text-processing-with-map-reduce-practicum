@@ -20,32 +20,11 @@
 			<artifactId>hadoop-core</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		<!-- Stanfor's NLP parser main artifact -->
 		<dependency>
 			<groupId>edu.stanford.nlp</groupId>
 			<artifactId>stanford-parser</artifactId>
 			<version>2.0.4</version>
 		</dependency>
 	</dependencies>
-<!--	<build>
-		<finalName>mapreduce-examples</finalName>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<outputDirectory>${basedir}</outputDirectory>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build> -->
 </project>

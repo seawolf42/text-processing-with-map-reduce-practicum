@@ -2,10 +2,13 @@ package ch02;
 
 import java.io.IOException;
 
+import misc.WholeFileInputFormat;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.BytesWritable;
 import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
@@ -22,6 +25,8 @@ public class WordCount1 {
 
 		job.setJarByClass(WordCount1.class);
 
+		job.setInputFormatClass(WholeFileInputFormat.class);
+
 		job.setMapperClass(WordCountMapper.class);
 		job.setReducerClass(WordCountReducer.class);
 
@@ -35,11 +40,11 @@ public class WordCount1 {
 	}
 }
 
-class WordCountMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+class WordCountMapper extends Mapper<NullWritable, Text, Text, IntWritable> {
 	static final IntWritable one = new IntWritable(1);
 	
 	@Override
-	public void map(LongWritable key, Text value, Context context)
+	public void map(NullWritable key, Text value, Context context)
 			throws IOException, InterruptedException {
 		for (String token : value.toString().split(" ")) {
 			context.write(new Text(token), one);

@@ -1,18 +1,15 @@
 package misc;
 
-// copied shamelessly from https://gist.github.com/sritchie/808035
-
-// changed output type to Text (was ByteWritable), otherwise identical to original
-// files downloaded
-
 import java.io.IOException;
+import java.text.BreakIterator;
+import java.util.Locale;
 
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.InputSplit;
 import org.apache.hadoop.mapreduce.JobContext;
 import org.apache.hadoop.mapreduce.TaskAttemptContext;
 import org.apache.hadoop.mapreduce.RecordReader;
-import org.apache.hadoop.io.NullWritable;
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.fs.Path;
  
@@ -23,32 +20,38 @@ import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.io.IOUtils;
 
-public class WholeFileInputFormat extends FileInputFormat<NullWritable, Text> {
+public class SentenceInputFormat extends FileInputFormat<LongWritable, Text> {
     @Override
     protected boolean isSplitable(JobContext context, Path filename) {
         return false;
     }
  
     @Override
-    public RecordReader<NullWritable, Text> createRecordReader(
+    public RecordReader<LongWritable, Text> createRecordReader(
       InputSplit split, TaskAttemptContext context) {
-        return new WholeFileRecordReader();
+        return new SentenceRecordReader();
     }
 }
 
-class WholeFileRecordReader extends RecordReader<NullWritable, Text> {
+class SentenceRecordReader extends RecordReader<LongWritable, Text> {
   
     private FileSplit fileSplit;
     private Configuration conf;
     private boolean processed = false;
+    String document;
   
-    private NullWritable key = NullWritable.get();
+    private LongWritable key = new LongWritable(0);
     private Text value = new Text();
+    
+    private BreakIterator sentenceIterator;
+    private int index = 0;
  
     @Override
 	public void initialize(InputSplit inputSplit, TaskAttemptContext taskAttemptContext) throws IOException, InterruptedException {
         this.fileSplit = (FileSplit) inputSplit;
         this.conf = taskAttemptContext.getConfiguration();
+		Locale locale = new Locale("en", "US");
+		sentenceIterator = BreakIterator.getSentenceInstance(locale);
     }
  
     @Override
@@ -63,18 +66,33 @@ class WholeFileRecordReader extends RecordReader<NullWritable, Text> {
             try {
                 in = fs.open(file);
                 IOUtils.readFully(in, contents, 0, contents.length);                
-                value.set(contents, 0, contents.length);
+                document = new String(contents);
             } finally {
                 IOUtils.closeStream(in);
             }
+            sentenceIterator.setText(document);
+    		index = sentenceIterator.first();
             processed = true;
-            return true;
+    		if (index == BreakIterator.DONE) {
+    			return false;
+    		}
         }
-        return false;
+		int lastIndex = index;
+		index = sentenceIterator.next();
+		if (index == BreakIterator.DONE) {
+			return false;
+		}
+		key = new LongWritable(index);
+		if (Character.isLetterOrDigit(document.charAt(lastIndex))) {
+			value = new Text(document.substring(lastIndex, index));
+        } else {
+        	value = new Text("ERROR");
+        }
+		return true;
     }
  
     @Override
-    public NullWritable getCurrentKey() throws IOException, InterruptedException {
+    public LongWritable getCurrentKey() throws IOException, InterruptedException {
         return key;
     }
  

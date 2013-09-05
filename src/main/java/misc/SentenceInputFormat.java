@@ -45,6 +45,7 @@ class SentenceRecordReader extends RecordReader<LongWritable, Text> {
     
     private BreakIterator sentenceIterator;
     private int index = 0;
+    private int length = 0;
  
     @Override
 	public void initialize(InputSplit inputSplit, TaskAttemptContext taskAttemptContext) throws IOException, InterruptedException {
@@ -67,6 +68,7 @@ class SentenceRecordReader extends RecordReader<LongWritable, Text> {
                 in = fs.open(file);
                 IOUtils.readFully(in, contents, 0, contents.length);                
                 document = new String(contents);
+                length = document.length();
             } finally {
                 IOUtils.closeStream(in);
             }
@@ -103,7 +105,7 @@ class SentenceRecordReader extends RecordReader<LongWritable, Text> {
     
     @Override
     public float getProgress() throws IOException, InterruptedException  {
-        return processed ? 1.0f : 0.0f;
+        return processed ? 1.0f * index / length : 0.0f;
     }
  
     @Override

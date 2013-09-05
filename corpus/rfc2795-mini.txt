@@ -6,5 +6,5 @@ This memo describes a protocol suite which supports an infinite
 number of monkeys that sit at an infinite number of typewriters in
 order to determine when they have either produced the entire works of
 William Shakespeare or a good television show.  The suite includes
-communications and control protocols for monkeys and the
+communications and control protocols, for monkeys and the
 organizations that interact with them.

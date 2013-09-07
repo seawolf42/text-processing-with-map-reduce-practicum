@@ -16,7 +16,7 @@ import ch02.WordCountReducer;
 public class Figure_3_3 {
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
-		Job job = new Job(conf, "Primitive Word Counts");
+		Job job = new Job(conf, "Improved In-Map Combining Word Counts");
 
 		job.setJarByClass(Figure_3_3.class);
 

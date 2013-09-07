@@ -9,12 +9,12 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class Figure_3_5 {
+public class Figure_3_6 {
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
 		Job job = new Job(conf, "Combining Averager");
 
-		job.setJarByClass(Figure_3_5.class);
+		job.setJarByClass(Figure_3_6.class);
 
 		job.setMapperClass(ImprovedMeanMapper.class);
 		job.setCombinerClass(ImprovedMeanCombiner.class);

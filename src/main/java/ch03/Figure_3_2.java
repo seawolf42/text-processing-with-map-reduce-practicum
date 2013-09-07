@@ -23,6 +23,7 @@ public class Figure_3_2 {
 		job.setInputFormatClass(SentenceInputFormat.class);
 
 		job.setMapperClass(WordCountInMapCombiningMapper.class);
+		job.setCombinerClass(WordCountReducer.class);
 		job.setReducerClass(WordCountReducer.class);
 
 		job.setOutputKeyClass(Text.class);

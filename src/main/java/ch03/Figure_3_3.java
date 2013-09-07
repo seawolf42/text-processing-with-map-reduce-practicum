@@ -1,4 +1,4 @@
-package ch02;
+package ch03;
 
 import misc.SentenceInputFormat;
 
@@ -10,19 +10,19 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-import ch02.WordCountMapper;
+import ch03.WordCountImprovedInMapCombiningMapper;
 import ch02.WordCountReducer;
 
-public class Figure_2_3 {
+public class Figure_3_3 {
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
 		Job job = new Job(conf, "Primitive Word Counts");
 
-		job.setJarByClass(Figure_2_3.class);
+		job.setJarByClass(Figure_3_3.class);
 
 		job.setInputFormatClass(SentenceInputFormat.class);
 
-		job.setMapperClass(WordCountMapper.class);
+		job.setMapperClass(WordCountImprovedInMapCombiningMapper.class);
 		job.setCombinerClass(WordCountReducer.class);
 		job.setReducerClass(WordCountReducer.class);
 

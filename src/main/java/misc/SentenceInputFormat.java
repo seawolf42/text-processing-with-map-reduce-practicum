@@ -86,7 +86,7 @@ class SentenceRecordReader extends RecordReader<LongWritable, Text> {
 		}
 		key = new LongWritable(index);
 		if (Character.isLetterOrDigit(document.charAt(lastIndex))) {
-			value = new Text(document.substring(lastIndex, index));
+			value = new Text(document.substring(lastIndex, index).toLowerCase());
         } else {
         	value = new Text("ERROR");
         }

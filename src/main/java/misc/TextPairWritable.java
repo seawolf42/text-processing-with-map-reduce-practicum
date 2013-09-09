@@ -81,11 +81,14 @@ public class TextPairWritable implements WritableComparable<TextPairWritable> {
 		if (cmp != 0) {
 			return cmp;
 		}
-		if (second.equals(ACCUMULATOR)) {
-			return -1;
-		} else if (other.second.equals(ACCUMULATOR)) {
-			return 1;
+		cmp = second.compareTo(other.second);
+		if (cmp != 0) {
+			if (second.equals(ACCUMULATOR)) {
+				return -1;
+			} else if (other.second.equals(ACCUMULATOR)) {
+				return 1;
+			}
 		}
-		return second.compareTo(other.second);
+		return cmp;
 	}
 }

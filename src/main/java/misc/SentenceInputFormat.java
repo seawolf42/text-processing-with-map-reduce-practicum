@@ -34,7 +34,7 @@ public class SentenceInputFormat extends FileInputFormat<LongWritable, Text> {
 }
 
 class SentenceRecordReader extends RecordReader<LongWritable, Text> {
-  
+
     private FileSplit fileSplit;
     private Configuration conf;
     private boolean processed = false;

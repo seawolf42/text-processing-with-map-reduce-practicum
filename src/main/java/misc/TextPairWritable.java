@@ -55,6 +55,10 @@ public class TextPairWritable implements WritableComparable<TextPairWritable> {
 		return first.hashCode() * 163 + second.hashCode();
 	}
 	
+	public int hashCodeFirst() {
+		return first.hashCode();
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof TextPairWritable) {

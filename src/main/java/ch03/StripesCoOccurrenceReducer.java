@@ -7,19 +7,16 @@ import misc.StringIntMapWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class StripesCoOccurrenceReducer extends Reducer<Text, StringIntMapWritable, Text, String> {
+public class StripesCoOccurrenceReducer extends Reducer<Text, StringIntMapWritable, Text, StringIntMapWritable> {
 	@Override
 	public void reduce(Text key, Iterable<StringIntMapWritable> values, Context context)
 			throws IOException, InterruptedException {
 		StringIntMapWritable counts = new StringIntMapWritable();
-		int marginal = 0;
 		for (StringIntMapWritable value : values) {
 			for (String innerKey : value.getCountKeys()) {
-				int count = value.getCount(innerKey);
-				marginal += count;
-				counts.addCount(innerKey, count);
+				counts.addCount(innerKey, value.getCount(innerKey));
 			}
 		}
-		context.write(key, counts.toFrequencyString(marginal));
+		context.write(key, counts);
 	}
 }

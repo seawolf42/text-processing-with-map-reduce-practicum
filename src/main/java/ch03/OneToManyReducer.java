@@ -10,7 +10,6 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 public class OneToManyReducer extends Reducer<TextPairWritable, Text, IntWritable, Text> {
 	String s = null;
-	int sId = -1;
 
 	@Override
 	public void reduce(TextPairWritable key, Iterable<Text> values, Context context)
@@ -20,7 +19,6 @@ public class OneToManyReducer extends Reducer<TextPairWritable, Text, IntWritabl
 		if (key.getSecond().toString().equals("S")) {
 			// there is only one element, since (id,"S") is a unique row
 			s = values.iterator().next().toString();
-			sId = id;
 		} else {
 			IntWritable tId = new IntWritable(id);
 			
@@ -28,6 +26,12 @@ public class OneToManyReducer extends Reducer<TextPairWritable, Text, IntWritabl
 			for (Text value : values) {
 				context.write(tId, new Text(s + "," + value));
 			}
+			
+			// at this point there will be no more 'T' elements for this 'S' element,
+			// so set s to null to represent our expectation that the next row
+			// will be an 'S' (we will get an exception if it isn't when we try
+			// writing additional lines to context in the iteration over 'T' values
+			s = null;
 		}
 	}
 }

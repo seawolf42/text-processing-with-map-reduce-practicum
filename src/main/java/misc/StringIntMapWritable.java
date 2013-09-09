@@ -102,6 +102,14 @@ public class StringIntMapWritable implements WritableComparable<StringIntMapWrit
 		return StringUtils.join(parts, ";");
 	}
 	
+	public String toFrequencyString(int marginal) {
+		List<String> parts = new ArrayList<String>();
+		for (String key : new TreeSet<String>(counts.keySet())) { 
+			parts.add(key + "," + 1.0f*counts.get(key)/marginal);
+		}
+		return StringUtils.join(parts, ";");
+	}
+	
 	@Override
 	public int compareTo(StringIntMapWritable other) {
 		return 0;

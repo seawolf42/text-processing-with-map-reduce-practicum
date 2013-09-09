@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.io.IntWritable;
@@ -95,7 +96,7 @@ public class StringIntMapWritable implements WritableComparable<StringIntMapWrit
 	@Override
 	public String toString() {
 		List<String> parts = new ArrayList<String>();
-		for (String key : counts.keySet()) {
+		for (String key : new TreeSet<String>(counts.keySet())) { 
 			parts.add(key + "," + counts.get(key));
 		}
 		return StringUtils.join(parts, ";");

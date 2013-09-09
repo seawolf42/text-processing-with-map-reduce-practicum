@@ -1,5 +1,8 @@
 package ch03;
 
+// 'co-occurrence' in this algorithm is defined as two words existing in
+// the same sentence
+
 import java.io.IOException;
 import java.text.BreakIterator;
 import java.util.ArrayList;

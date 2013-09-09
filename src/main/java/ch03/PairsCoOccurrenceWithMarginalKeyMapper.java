@@ -41,7 +41,7 @@ public class PairsCoOccurrenceWithMarginalKeyMapper extends Mapper<Object, Text,
 			for (int j = 0 ; j < words.size() ; ++j) {
 				if (i != j) {
 					String first = words.get(i);
-					context.write(new TextPairWritable(first, "*"), one);
+					context.write(new TextPairWritable(first, TextPairWritable.ACCUMULATOR), one);
 					context.write(new TextPairWritable(first, words.get(j)), one);
 				}
 			}

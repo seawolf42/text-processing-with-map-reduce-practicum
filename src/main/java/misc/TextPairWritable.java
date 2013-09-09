@@ -13,6 +13,8 @@ public class TextPairWritable implements WritableComparable<TextPairWritable> {
 	private Text first;
 	private Text second;
 	
+	public static final String ACCUMULATOR = "*"; 
+	
 	public TextPairWritable() {
 		set(new Text(), new Text());
 	}
@@ -78,6 +80,11 @@ public class TextPairWritable implements WritableComparable<TextPairWritable> {
 		int cmp = first.compareTo(other.first);
 		if (cmp != 0) {
 			return cmp;
+		}
+		if (second.equals(ACCUMULATOR)) {
+			return -1;
+		} else if (other.second.equals(ACCUMULATOR)) {
+			return 1;
 		}
 		return second.compareTo(other.second);
 	}

@@ -18,12 +18,13 @@ public class OneToManyReducer extends Reducer<TextPairWritable, Text, IntWritabl
 		int id = Integer.parseInt(key.getFirst().toString());
 		
 		if (key.getSecond().toString().equals("S")) {
-			// there is only one element, since (id,"S") is a unique row in S
+			// there is only one element, since (id,"S") is a unique row
 			s = values.iterator().next().toString();
 			sId = id;
 		} else {
 			IntWritable tId = new IntWritable(id);
 			
+			// for a given id, there may be many (id,"T") elements
 			for (Text value : values) {
 				context.write(tId, new Text(s + "," + value));
 			}

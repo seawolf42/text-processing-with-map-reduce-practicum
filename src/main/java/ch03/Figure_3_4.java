@@ -1,5 +1,8 @@
 package ch03;
 
+import meancalculation.MeanMapper;
+import meancalculation.MeanReducer;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.DoubleWritable;

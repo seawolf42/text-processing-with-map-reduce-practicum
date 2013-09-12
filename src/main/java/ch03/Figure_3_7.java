@@ -1,5 +1,8 @@
 package ch03;
 
+import meancalculation.ImprovedInMapCombinerMeanMapper;
+import meancalculation.ImprovedMeanCombiner;
+import meancalculation.ImprovedMeanReducer;
 import misc.DoubleIntPairWritable;
 
 import org.apache.hadoop.conf.Configuration;

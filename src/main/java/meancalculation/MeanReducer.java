@@ -1,4 +1,4 @@
-package ch03;
+package meancalculation;
 
 import java.io.IOException;
 

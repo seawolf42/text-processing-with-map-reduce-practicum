@@ -1,4 +1,4 @@
-package ch03;
+package wordcooccurrence;
 
 //'co-occurrence' in this algorithm is defined as two words existing in
 //the same sentence

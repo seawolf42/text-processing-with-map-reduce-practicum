@@ -1,4 +1,4 @@
-package ch03;
+package wordcooccurrence;
 
 // output frequencies instead of counts
 

@@ -1,7 +1,7 @@
-package ch03;
+package wordcooccurrence;
 
-// 'co-occurrence' in this algorithm is defined as two words existing in
-// the same sentence
+//'co-occurrence' in this algorithm is defined as two words existing in
+//the same sentence
 
 import java.io.IOException;
 import java.text.BreakIterator;
@@ -9,15 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import misc.TextPairWritable;
+import misc.StringIntMapWritable;
 
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class PairsCoOccurrenceMapper extends Mapper<Object, Text, TextPairWritable, IntWritable> {
-	private IntWritable one = new IntWritable(1);
-
+public class StripesCoOccurrenceMapper extends Mapper<Object, Text, Text, StringIntMapWritable> {
 	@Override
 	public void map(Object key, Text value, Context context)
 			throws IOException, InterruptedException {
@@ -40,12 +37,16 @@ public class PairsCoOccurrenceMapper extends Mapper<Object, Text, TextPairWritab
 			}
 		}
 		
+		StringIntMapWritable counts = new StringIntMapWritable();
+
 		for (int i = 0 ; i < words.size() ; ++i) {
+			counts.clear();
 			for (int j = 0 ; j < words.size() ; ++j) {
 				if (i != j) {
-					context.write(new TextPairWritable(words.get(i), words.get(j)), one);
+					counts.addCount(words.get(j), 1);
 				}
 			}
+			context.write(new Text(words.get(i)), counts);
 		}
 	}
 }

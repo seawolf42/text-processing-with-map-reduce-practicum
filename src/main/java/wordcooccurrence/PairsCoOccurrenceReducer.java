@@ -1,4 +1,4 @@
-package ch03;
+package wordcooccurrence;
 
 import java.io.IOException;
 

@@ -10,6 +10,9 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
+import wordcooccurrence.StripesCoOccurrenceMapper;
+import wordcooccurrence.StripesCoOccurrenceReducer;
+
 public class Figure_3_9 {
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();

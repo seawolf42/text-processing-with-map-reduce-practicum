@@ -1,5 +1,7 @@
 package ch03;
 
+import join.OneToManyMapper;
+import join.OneToManyReducer;
 import misc.TextPairLeftWordPartitioner;
 import misc.TextPairWritable;
 

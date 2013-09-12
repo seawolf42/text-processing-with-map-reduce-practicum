@@ -1,4 +1,4 @@
-package ch03;
+package join;
 
 import java.io.IOException;
 

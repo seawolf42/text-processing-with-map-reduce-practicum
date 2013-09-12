@@ -1,4 +1,4 @@
-package ch04;
+package invertedindex;
 
 import java.io.IOException;
 import java.text.BreakIterator;

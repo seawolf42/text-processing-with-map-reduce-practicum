@@ -1,5 +1,7 @@
 package ch04;
 
+import invertedindex.InvertedIndexMapper;
+import invertedindex.InvertedIndexReducer;
 import misc.ProbabilitiesWritable;
 import misc.WholeFileInputFormat;
 

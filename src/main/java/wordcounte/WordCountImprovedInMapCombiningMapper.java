@@ -1,17 +1,24 @@
-package WordCount;
+package wordcounte;
 
 import java.io.IOException;
 import java.text.BreakIterator;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class WordCountMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
-	static final IntWritable one = new IntWritable(1);
-
+public class WordCountImprovedInMapCombiningMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+	Map<String, Integer> wordCounts = new HashMap<String, Integer>();
+	
+	@Override
+	public void setup(Context context) {
+		wordCounts.clear();
+	}
+	
 	@Override
 	public void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {
@@ -29,9 +36,19 @@ public class WordCountMapper extends Mapper<LongWritable, Text, Text, IntWritabl
 			wordIndex = wordIterator.next();
 			if ((BreakIterator.DONE != wordIndex) &&
 					Character.isLetterOrDigit(sentence.charAt(lastWordIndex))) {
-				String token = sentence.substring(lastWordIndex, wordIndex);
-				context.write(new Text(token), one);
+				String word = sentence.substring(lastWordIndex, wordIndex);
+				if (!wordCounts.containsKey(word)) {
+					wordCounts.put(word, 0);
+				}
+				wordCounts.put(word, wordCounts.get(word) + 1);
 			}
+		}
+	}
+	
+	@Override
+	public void cleanup(Context context) throws IOException, InterruptedException {
+		for (String word : wordCounts.keySet()) {
+			context.write(new Text(word), new IntWritable(wordCounts.get(word)));
 		}
 	}
 }

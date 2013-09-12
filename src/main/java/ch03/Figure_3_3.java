@@ -10,8 +10,9 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-import WordCount.WordCountImprovedInMapCombiningMapper;
-import WordCount.WordCountReducer;
+import wordcounte.WordCountImprovedInMapCombiningMapper;
+import wordcounte.WordCountReducer;
+
 
 
 public class Figure_3_3 {

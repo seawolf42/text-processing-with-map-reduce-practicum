@@ -1,4 +1,4 @@
-package WordCount;
+package wordcounte;
 
 import java.io.IOException;
 

@@ -34,7 +34,7 @@ public class InvertedIndexMapper extends Mapper<Text, Text, Text, ProbabilitiesW
 			wordIndex = wordIterator.next();
 			if ((BreakIterator.DONE != wordIndex) &&
 					Character.isLetterOrDigit(document.charAt(lastWordIndex))) {
-				String word = document.substring(lastWordIndex, wordIndex);
+				String word = document.substring(lastWordIndex, wordIndex).toLowerCase();
 				if (counts.containsKey(word)) {
 					counts.put(word, counts.get(word) + 1);
 				} else {

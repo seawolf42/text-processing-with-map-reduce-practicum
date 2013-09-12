@@ -10,8 +10,9 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-import ch02.WordCountMapper;
-import ch02.WordCountReducer;
+import WordCount.WordCountMapper;
+import WordCount.WordCountReducer;
+
 
 public class Figure_2_3 {
 	public static void main(String[] args) throws Exception {

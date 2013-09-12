@@ -1,4 +1,4 @@
-package ch03;
+package WordCount;
 
 import java.io.IOException;
 import java.text.BreakIterator;
@@ -11,7 +11,14 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class WordCountInMapCombiningMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+public class WordCountImprovedInMapCombiningMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+	Map<String, Integer> wordCounts = new HashMap<String, Integer>();
+	
+	@Override
+	public void setup(Context context) {
+		wordCounts.clear();
+	}
+	
 	@Override
 	public void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {
@@ -19,8 +26,6 @@ public class WordCountInMapCombiningMapper extends Mapper<LongWritable, Text, Te
 		Locale locale = new Locale("en", "US");
 		BreakIterator wordIterator = BreakIterator.getWordInstance(locale);
 
-		Map<String, Integer> wordCounts = new HashMap<String, Integer>();
-		
 		String sentence = value.toString();
 		wordIterator.setText(sentence);
 		int wordIndex;
@@ -38,6 +43,10 @@ public class WordCountInMapCombiningMapper extends Mapper<LongWritable, Text, Te
 				wordCounts.put(word, wordCounts.get(word) + 1);
 			}
 		}
+	}
+	
+	@Override
+	public void cleanup(Context context) throws IOException, InterruptedException {
 		for (String word : wordCounts.keySet()) {
 			context.write(new Text(word), new IntWritable(wordCounts.get(word)));
 		}

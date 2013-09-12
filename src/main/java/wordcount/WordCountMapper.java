@@ -1,4 +1,4 @@
-package wordcounte;
+package wordcount;
 
 import java.io.IOException;
 import java.text.BreakIterator;

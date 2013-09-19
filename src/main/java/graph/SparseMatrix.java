@@ -18,7 +18,7 @@ public class SparseMatrix<K extends Comparable<? super K>, W> {
 		matrix = new HashMap<K, Map<K, W>>();
 	}
 	
-	public void add(K rowKey, K columnKey, W weight) {
+	public void put(K rowKey, K columnKey, W weight) {
 		Map<K, W> row;
 		if (!matrix.containsKey(rowKey)) {
 			row = new HashMap<K, W>();
@@ -95,5 +95,16 @@ public class SparseMatrix<K extends Comparable<? super K>, W> {
 			size += matrix.get(key).size();
 		}
 		return size;
+	}
+
+	public SparseMatrix<K, W> getTranspose() {
+		SparseMatrix<K, W> transpose = new SparseMatrix<K, W>(classOfW);
+		for (K rowKey : matrix.keySet()) {
+			Map<K, W> row = matrix.get(rowKey);
+			for (K columnKey : row.keySet()) {
+				transpose.put(columnKey, rowKey, row.get(columnKey));
+			}
+		}
+		return transpose;
 	}
 }

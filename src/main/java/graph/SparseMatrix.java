@@ -30,12 +30,16 @@ public class SparseMatrix<K extends Comparable<? super K>, W> {
 		row.put(columnKey, weight);
 	}
 	
-	public W get(K rowKey, K columnKey) throws InstantiationException, IllegalAccessException {
+	public W get(K rowKey, K columnKey) {
 		try {
 			return matrix.get(rowKey).get(columnKey);
 		}
 		catch (Exception e) {
-			return classOfW.newInstance();
+			try {
+				return classOfW.newInstance();
+			} catch (Exception e1) {
+				return null;
+			}
 		}
 	}
 

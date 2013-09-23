@@ -30,7 +30,7 @@ public class SparseMatrix<K extends Comparable<? super K>, W> {
 		row.put(columnKey, weight);
 	}
 	
-	public W get(K rowKey, K columnKey) {
+	public W getWeight(K rowKey, K columnKey) {
 		try {
 			return matrix.get(rowKey).get(columnKey);
 		}
@@ -86,7 +86,13 @@ public class SparseMatrix<K extends Comparable<? super K>, W> {
 		return true;
 	}
 
-	public void remove(K rowKey, K columnKey) {
+	public W remove(K rowKey, K columnKey) {
+		try {
+			return matrix.get(rowKey).remove(columnKey);
+		}
+		catch (Exception e) {
+			return null;
+		}
 	}
 
 	public int size() {

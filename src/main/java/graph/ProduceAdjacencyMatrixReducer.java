@@ -21,6 +21,8 @@ public class ProduceAdjacencyMatrixReducer
 	public void reduce(IntWritable key, Iterable<MapWritable> values, Context context)
 			throws IOException, InterruptedException {
 
+		int personOfInterest = context.getConfiguration().getInt("startNodeId", Integer.MIN_VALUE);
+
 		TreeSet<Integer> result = new TreeSet<Integer>();
 		for (MapWritable set : values) {
 			for (Writable innerKey : set.keySet()) {
@@ -29,7 +31,11 @@ public class ProduceAdjacencyMatrixReducer
 		}
 
 		List<String> friends = new ArrayList<String>();
-		friends.add(infinity.toString());
+		if (Integer.parseInt(key.toString()) == personOfInterest) {
+			friends.add("0");
+		} else {
+			friends.add(infinity.toString());
+		}
 		for (Integer friendID : result) {
 			friends.add(friendID.toString());
 		}

@@ -10,7 +10,9 @@ import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class ProduceAdjacencyMatrixMapper extends Mapper<Text, Text, IntWritable, MapWritable> {
+public class ProduceAdjacencyMatrixMapper
+	extends Mapper<Text, Text, IntWritable, MapWritable> {
+
 	@Override
 	public void map(Text key, Text value, Context context)
 			throws IOException, InterruptedException {

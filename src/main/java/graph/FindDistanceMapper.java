@@ -1,5 +1,10 @@
 package graph;
 
+// to make paths measure shortest weights instead of fewest number of steps:
+// * alter the input to include weights with each element in the list
+// * change the value emitted inside the while loop to be the distance so
+//   far plus the weight of the node being tokenized
+
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -13,12 +18,12 @@ public class FindDistanceMapper
 	extends Mapper<LongWritable, Text, IntWritable, Text> {
 
 	private Integer iteration;
-	private Text weight;
+	private Text pathLength;
 	
 	@Override
 	public void setup(Context context) {
 		iteration = context.getConfiguration().getInt("iteration", Integer.MAX_VALUE);
-		weight = new Text(iteration.toString());
+		pathLength = new Text(iteration.toString());
 	}
 
 	@Override
@@ -35,7 +40,7 @@ public class FindDistanceMapper
 			// explode this node
 			while (tokenizer.hasNext()) {
 				try {
-					context.write(new IntWritable(tokenizer.nextInt()), weight);
+					context.write(new IntWritable(tokenizer.nextInt()), pathLength);
 				} catch (InputMismatchException e) {
 					// ignore non-number values; these are 'circleX' items at the start
 					// of each line and we don't care about them

@@ -13,12 +13,12 @@ public class FindDistanceMapper
 	extends Mapper<LongWritable, Text, IntWritable, Text> {
 
 	private Integer iteration;
-	private Text pathLength;
+	private Text weight;
 	
 	@Override
 	public void setup(Context context) {
 		iteration = context.getConfiguration().getInt("iteration", Integer.MAX_VALUE);
-		pathLength = new Text(iteration.toString());
+		weight = new Text(iteration.toString());
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class FindDistanceMapper
 			// explode this node
 			while (tokenizer.hasNext()) {
 				try {
-					context.write(new IntWritable(tokenizer.nextInt()), pathLength);
+					context.write(new IntWritable(tokenizer.nextInt()), weight);
 				} catch (InputMismatchException e) {
 					// ignore non-number values; these are 'circleX' items at the start
 					// of each line and we don't care about them

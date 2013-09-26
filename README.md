@@ -26,5 +26,14 @@ or Linux:
 * clean up when you're done:
       $ rm -rf output
 
+Data sets have been downloaded from the following public internet sources:
+
+* corpus: RFC-2795 (http://tools.ietf.org/html/rfc2795) downloaded from the Internet
+      Engineering Task Force (http://ietf.org)
+
+* friends: XXXX.circles files extracted from the Facebook circles/friends dataset
+      (http://snap.stanford.edu/data/facebook.tar.gz), part of the Social Circles
+      datasets from Stanford (http://snap.stanford.edu/data/)
+
 This code may be freely used as per the MIT license. Please attribute this repository
 when incorporating this into any derivative work.

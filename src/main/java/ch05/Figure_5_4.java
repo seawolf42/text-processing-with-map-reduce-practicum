@@ -71,6 +71,10 @@ public class Figure_5_4 {
 		// ensure the output files (which are input to the next iteration) are
 		// numerous enough to take advantage of the full cluster on subsequent
 		// iterations
+		// NOTE: if the input files are large enough, this will happen anyway
+		// when the output of the phase is chunked by the HDFS block size; there
+		// is still performance advantage to spreading reduction across the
+		// cluster
 		//job.setNumReduceTasks(100);
 
 		return job.waitForCompletion(true);
@@ -88,6 +92,7 @@ public class Figure_5_4 {
 		job.setMapperClass(FindDistanceMapper.class);
 		job.setOutputKeyClass(IntWritable.class);
 		job.setOutputValueClass(Text.class);
+		// performance could be radically improved with a combiner
 		job.setReducerClass(FindDistanceReducer.class);
 
 		// see the comment in produceAdjacencyMatrix()

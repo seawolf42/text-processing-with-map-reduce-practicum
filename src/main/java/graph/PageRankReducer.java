@@ -9,6 +9,8 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 public class PageRankReducer extends Reducer<Text, Text, Text, Text> {
 
+	private static final double tolerance = 0.9;
+
 	@Override
 	public void reduce(Text key, Iterable<Text> values, Context context)
 			throws IOException, InterruptedException {
@@ -31,8 +33,7 @@ public class PageRankReducer extends Reducer<Text, Text, Text, Text> {
 		context.write(key, new Text(String.format("%f %s", rankMass, links)));
 
 		double differential = rankMass / originalPageRank;
-		System.out.println(key + ": " + originalPageRank + "->" + rankMass + " = " + differential);
-		if (0.9 > differential || differential > 1.1) {
+		if (tolerance > differential || differential > 1/tolerance) {
 			context.getCounter(Nodes.ALTERED).increment(1);
 		}
 	}

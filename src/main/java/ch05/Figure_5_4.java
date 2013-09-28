@@ -67,6 +67,12 @@ public class Figure_5_4 {
 		job.setCombinerClass(ProduceAdjacencyMatrixCombiner.class);
 		job.setReducerClass(ProduceAdjacencyMatrixReducer.class);
 
+		// this should be linear to the number of tasktrackers in the cluster to
+		// ensure the output files (which are input to the next iteration) are
+		// numerous enough to take advantage of the full cluster on subsequent
+		// iterations
+		//job.setNumReduceTasks(100);
+
 		return job.waitForCompletion(true);
 	}
 
@@ -83,6 +89,9 @@ public class Figure_5_4 {
 		job.setOutputKeyClass(IntWritable.class);
 		job.setOutputValueClass(Text.class);
 		job.setReducerClass(FindDistanceReducer.class);
+
+		// see the comment in produceAdjacencyMatrix()
+		//job.setNumReduceTasks(100);
 
 		if (!job.waitForCompletion(true)) {
 			return -1L;

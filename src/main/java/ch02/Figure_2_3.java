@@ -13,8 +13,6 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import wordcount.WordCountMapper;
 import wordcount.WordCountReducer;
 
-
-
 public class Figure_2_3 {
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();

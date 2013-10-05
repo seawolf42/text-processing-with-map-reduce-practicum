@@ -18,7 +18,7 @@ public class PairsCoOccurrenceWithMarginalReducer extends Reducer<TextPairWritab
 		for (IntWritable value : values) {
 			count += value.get();
 		}
-		if (key.getSecond().toString().equals("*")) {
+		if (key.getSecond().toString().equals(TextPairWritable.ACCUMULATOR)) {
 			marginal = count;
 		} else {
 			context.write(key, new DoubleWritable(1.0f*count/marginal));

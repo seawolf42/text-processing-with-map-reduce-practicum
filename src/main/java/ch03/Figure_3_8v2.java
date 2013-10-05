@@ -19,7 +19,7 @@ import wordcooccurrence.PairsCoOccurrenceWithMarginalReducer;
 public class Figure_3_8v2 {
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
-		Job job = new Job(conf, "Pairs Word Co-Occurrence with Frequencies");
+		Job job = new Job(conf, "Pairs Word Co-Occurrence as Probabilities");
 
 		job.setJarByClass(Figure_3_8v2.class);
 

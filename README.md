@@ -15,16 +15,20 @@ various Writable types used to pass parameters between phases are instantiated
 individually as needed rather than being re-used. This results in a large overhead
 of object creation and destruction but makes the code much easier to follow.
 
-Assuming you are using Maven and have Hadoop installed on localhost (setting up Hadoop
-is beyond the scope of this project but can be performed relatively easily on OSX
-[http://jeff.jke.net/2012/10/28/installing-hadoop-dev-environment-mac-osx-snow-leopard]
-or Linux:
+A brief discussion of each implementation can be found at:
+http://jeff.jke.net/2013/10/12/data-intensive-text-processing-map-reduce
+
+Assuming you are using Maven and have Hadoop installed on localhost:
 * compile the project:
       $ mvn package
 * run the algorithm Figure 4.2:
       $ hadoop jar target/ditp-1.0-SNAPSHOT.jar ch04.Figure_4_2 corpus output
 * clean up when you're done:
       $ rm -rf output
+
+Setting up Hadoop is beyond the scope of this project but can be performed relatively
+easily on Linux or OSX:
+http://jeff.jke.net/2012/10/28/installing-hadoop-dev-environment-mac-osx-snow-leopard
 
 Data sets have been downloaded from the following public internet sources:
 

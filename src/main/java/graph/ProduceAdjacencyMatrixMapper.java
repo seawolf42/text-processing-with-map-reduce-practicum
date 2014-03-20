@@ -5,24 +5,28 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.MapWritable;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.lib.input.FileSplit;
 import org.apache.hadoop.mapreduce.Mapper;
 
 public class ProduceAdjacencyMatrixMapper
-	extends Mapper<Text, Text, IntWritable, MapWritable> {
+	extends Mapper<LongWritable, Text, IntWritable, MapWritable> {
+
+	private IntWritable personID = null;
+	private static NullWritable nullValue = NullWritable.get();
+	
+	@Override
+	public void setup(Context context) {
+		String filename = ((FileSplit) context.getInputSplit()).getPath().getName();
+		personID = new IntWritable(Integer.parseInt(
+				filename.substring(0, filename.indexOf('.'))));	}
 
 	@Override
-	public void map(Text key, Text value, Context context)
+	public void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {
-
-		String keyPrefix = key.toString();
-		keyPrefix = keyPrefix.substring(0, keyPrefix.indexOf('.'));
-		IntWritable personID = new IntWritable(Integer.parseInt(keyPrefix));
-
-		NullWritable nullValue = NullWritable.get();
-		
 		MapWritable personAsFriend = new MapWritable();
 		personAsFriend.put(personID, nullValue);
 		

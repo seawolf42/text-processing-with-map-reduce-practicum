@@ -7,13 +7,13 @@ import graph.ProduceAdjacencyMatrixMapper;
 import graph.ProduceAdjacencyMatrixReducer;
 
 import misc.Nodes;
-import misc.WholeFileInputFormat;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.MapWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -60,7 +60,7 @@ public class Figure_5_4 {
 		FileInputFormat.addInputPath(job, input);
 		FileOutputFormat.setOutputPath(job, output);
 
-		job.setInputFormatClass(WholeFileInputFormat.class);
+		job.setInputFormatClass(TextInputFormat.class);
 		job.setMapperClass(ProduceAdjacencyMatrixMapper.class);
 		job.setOutputKeyClass(IntWritable.class);
 		job.setOutputValueClass(MapWritable.class);

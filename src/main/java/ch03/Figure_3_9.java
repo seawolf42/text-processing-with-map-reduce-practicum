@@ -16,7 +16,7 @@ import wordcooccurrence.StripesCoOccurrenceReducer;
 public class Figure_3_9 {
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
-		Job job = new Job(conf, "Stripes Word Co-Occurrence");
+		Job job = Job.getInstance(conf, "Stripes Word Co-Occurrence");
 
 		job.setJarByClass(Figure_3_9.class);
 

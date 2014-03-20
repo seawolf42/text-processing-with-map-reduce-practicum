@@ -15,7 +15,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 public class Figure_3_7 {
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
-		Job job = new Job(conf, "Combining Averager with In-Map Combining");
+		Job job = Job.getInstance(conf, "Combining Averager with In-Map Combining");
 
 		job.setJarByClass(Figure_3_6.class);
 

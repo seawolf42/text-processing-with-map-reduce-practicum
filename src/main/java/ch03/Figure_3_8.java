@@ -16,7 +16,7 @@ import wordcooccurrence.PairsCoOccurrenceReducer;
 public class Figure_3_8 {
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
-		Job job = new Job(conf, "Pairs Word Co-Occurrence");
+		Job job = Job.getInstance(conf, "Pairs Word Co-Occurrence");
 
 		job.setJarByClass(Figure_3_8.class);
 

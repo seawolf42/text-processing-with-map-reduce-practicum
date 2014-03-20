@@ -54,7 +54,7 @@ public class Figure_5_4 {
 	private static boolean produceAdjacencyMatrix(
 			Configuration conf, Path input, Path output)
 			throws Exception {
-		Job job = new Job(conf, "Create Friend Adjacency Matrix from Circles");
+		Job job = Job.getInstance(conf, "Create Friend Adjacency Matrix from Circles");
 		job.setJarByClass(Figure_5_4.class);
 
 		FileInputFormat.addInputPath(job, input);
@@ -83,7 +83,7 @@ public class Figure_5_4 {
 	private static long explodeLevel(int i, Configuration conf, Path input, Path output)
 			throws Exception {
 		conf.set("iteration", new Integer(i).toString());
-		Job job = new Job(conf, String.format("Breadth-First Search Pass %d", i));
+		Job job = Job.getInstance(conf, String.format("Breadth-First Search Pass %d", i));
 		job.setJarByClass(Figure_5_4.class);
 
 		FileInputFormat.addInputPath(job, input);

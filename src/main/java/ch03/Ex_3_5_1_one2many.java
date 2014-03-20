@@ -15,7 +15,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 public class Ex_3_5_1_one2many {
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
-		Job job = new Job(conf, "One-to-Many Join Between Tables S and T");
+		Job job = Job.getInstance(conf, "One-to-Many Join Between Tables S and T");
 
 		job.setJarByClass(Ex_3_5_1_one2many.class);
 

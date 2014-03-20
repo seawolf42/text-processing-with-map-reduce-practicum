@@ -16,7 +16,7 @@ import wordcount.WordCountReducer;
 public class Figure_2_3 {
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
-		Job job = new Job(conf, "Primitive Word Counts");
+		Job job = Job.getInstance(conf, "Primitive Word Counts");
 
 		job.setJarByClass(Figure_2_3.class);
 

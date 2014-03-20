@@ -39,7 +39,7 @@ public class Figure_5_8 {
 	private static long iterate(int i, Configuration conf, Path input, Path output)
 			throws Exception {
 		conf.set("iteration", new Integer(i).toString());
-		Job job = new Job(conf, String.format("PageRank Pass %d", i));
+		Job job = Job.getInstance(conf, String.format("PageRank Pass %d", i));
 		job.setJarByClass(Figure_5_4.class);
 
 		FileInputFormat.addInputPath(job, input);

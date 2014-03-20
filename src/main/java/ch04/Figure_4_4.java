@@ -16,7 +16,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 public class Figure_4_4 {
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
-		Job job = new Job(conf, "Inverted Index Creation Using Complex Keys");
+		Job job = Job.getInstance(conf, "Inverted Index Creation Using Complex Keys");
 
 		job.setJarByClass(Figure_4_4.class);
 

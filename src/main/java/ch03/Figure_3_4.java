@@ -14,7 +14,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 public class Figure_3_4 {
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
-		Job job = new Job(conf, "Primitive Averager");
+		Job job = Job.getInstance(conf, "Primitive Averager");
 
 		job.setJarByClass(Figure_3_4.class);
 

@@ -12,11 +12,13 @@ import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class InvertedIndexComplexKeyMapper extends Mapper<Text, Text, TextPairWritable, DoubleWritable> {
+public class InvertedIndexComplexKeyMapper
+		extends Mapper<Text, Text, TextPairWritable, DoubleWritable> {
+
 	@Override
 	public void map(Text key, Text value, Context context)
 			throws IOException, InterruptedException {
-		String docId = key.toString();
+		String docID = key.toString();
 		
 		Locale locale = new Locale("en", "US");
 		BreakIterator wordIterator = BreakIterator.getWordInstance(locale);
@@ -47,7 +49,7 @@ public class InvertedIndexComplexKeyMapper extends Mapper<Text, Text, TextPairWr
 
 		for (String word : counts.keySet()) {
 			context.write(
-					new TextPairWritable(word, docId),
+					new TextPairWritable(word, docID),
 					new DoubleWritable(1.0d*counts.get(word)/totalWords));
 		}
 	}

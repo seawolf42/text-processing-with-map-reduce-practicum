@@ -3,13 +3,13 @@ package ch04;
 import invertedindex.InvertedIndexMapper;
 import invertedindex.InvertedIndexReducer;
 import misc.ProbabilitiesWritable;
+import misc.WholeFileInputFormat;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
-import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class Figure_4_2 {
@@ -19,7 +19,7 @@ public class Figure_4_2 {
 
 		job.setJarByClass(Figure_4_2.class);
 
-		job.setInputFormatClass(TextInputFormat.class);
+		job.setInputFormatClass(WholeFileInputFormat.class);
 
 		job.setMapperClass(InvertedIndexMapper.class);
 		job.setReducerClass(InvertedIndexReducer.class);

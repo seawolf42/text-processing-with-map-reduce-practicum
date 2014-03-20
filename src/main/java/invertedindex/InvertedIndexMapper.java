@@ -8,24 +8,15 @@ import java.util.Map;
 
 import misc.ProbabilitiesWritable;
 
-import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.Mapper.Context;
-import org.apache.hadoop.mapreduce.lib.input.FileSplit;
 
-public class InvertedIndexMapper extends Mapper<LongWritable, Text, Text, ProbabilitiesWritable> {
-	private String docID = null;
-	
+public class InvertedIndexMapper extends Mapper<Text, Text, Text, ProbabilitiesWritable> {
 	@Override
-	public void setup(Context context) {
-		docID = ((FileSplit) context.getInputSplit()).getPath().getName();
-	}
-
-	@Override
-	public void map(LongWritable key, Text value, Context context)
+	public void map(Text key, Text value, Context context)
 			throws IOException, InterruptedException {
+		String docID = key.toString();
+		
 		Locale locale = new Locale("en", "US");
 		BreakIterator wordIterator = BreakIterator.getWordInstance(locale);
 		

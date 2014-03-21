@@ -28,7 +28,7 @@ public class InvertedIndexComplexKeyReducer extends Reducer<TextPairWritable, Do
 		String page = key.getSecond().toString();
 		
 		if (lastTerm != null && !term.equals(lastTerm)) {
-			context.write(new Text(term), new Text(StringUtils.join(postings, ";")));
+			context.write(new Text(lastTerm), new Text(StringUtils.join(postings, ";")));
 			postings.clear();
 		}
 		

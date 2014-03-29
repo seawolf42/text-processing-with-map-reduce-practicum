@@ -40,7 +40,7 @@ public class Figure_5_8 {
 			throws Exception {
 		conf.set("iteration", new Integer(i).toString());
 		Job job = Job.getInstance(conf, String.format("PageRank Pass %d", i));
-		job.setJarByClass(Figure_5_4.class);
+		job.setJarByClass(Figure_5_8.class);
 
 		FileInputFormat.addInputPath(job, input);
 		FileOutputFormat.setOutputPath(job, output);
